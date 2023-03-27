@@ -25,13 +25,15 @@ with open('Player_Totals.csv', newline='') as csvfile:
 
     for row in reader:
 
-        # Create URIs for the player and team
+        # Create URIs for the player, team and season
         player_uri = nba[row['player_id']]
         
         team_uri = nba[row['tm']]
 
+        season_uri = nba[row['season']]
+
         
-        # Add triples for the player and team
+        # Add triples for the player, team and season
         g.add((player_uri, rdf.type, nba.Player))
 
         g.add((player_uri, nba.hasName, Literal(row['player'], lang='en')))
@@ -41,6 +43,8 @@ with open('Player_Totals.csv', newline='') as csvfile:
         g.add((team_uri, rdf.type, nba.Team))
 
         g.add((team_uri, nba.hasName, Literal(row['tm'], lang='en')))
+
+        g.add((season_uri, nba.hasSeason, Literal(row['season'])))
 
 
         # Add triples for the player's stats
@@ -150,5 +154,5 @@ with open('Player_Totals.csv', newline='') as csvfile:
 
 
 # Serialize the graph as N-Triples and write to a file
-with open('Player_Totals.nt', 'wb') as f:
+with open('Player_Totals.nt', 'w') as f:
     f.write(g.serialize(format='nt'))
