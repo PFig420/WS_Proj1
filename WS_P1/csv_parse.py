@@ -11,7 +11,7 @@ import re
 from rdflib import Graph, Namespace, Literal, URIRef
 
 # Define namespaces for RDF
-nba = Namespace('http://example.org/nba#')
+nba = Namespace('http://example.org/nba/')
 rdf = Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#')
 rdfs = Namespace('http://www.w3.org/2000/01/rdf-schema#')
 xsd = Namespace('http://www.w3.org/2001/XMLSchema#')
@@ -27,17 +27,11 @@ with open('Player_Totals.csv', newline='') as csvfile:
     for row in reader:
 
         # Create URIs for the player, team and season
-        # player_uri = nba[row['player_id']]
-        
-        # team_uri = nba[row['tm']]
-
-        # season_uri = nba[row['season']]
-
         player_uri = URIRef(f'http://example.org/nba/player/{row["player_id"]}')
+
         team_uri = URIRef(f'http://example.org/nba/team/{row["tm"]}')
+
         season_uri = URIRef(f'http://example.org/nba/season/{row["season"]}-{int(row["season"]) + 1}')
-
-
         
         # Add triples for the player, team and season
         g.add((player_uri, rdf.type, nba.Player))
