@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from nbastats import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 urlpatterns = [
     path('', views.members, name='members'),
     path('player/', views.playersearch, name='player'),
