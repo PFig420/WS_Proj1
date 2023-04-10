@@ -7,10 +7,11 @@ Renato Dias - 98380
 '''
 
 import csv
+import re
 from rdflib import Graph, Namespace, Literal, URIRef
 
 # Define namespaces for RDF
-nba = Namespace('http://example.org/nba#')
+nba = Namespace('http://example.org/nba/')
 rdf = Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#')
 rdfs = Namespace('http://www.w3.org/2000/01/rdf-schema#')
 xsd = Namespace('http://www.w3.org/2001/XMLSchema#')
@@ -26,12 +27,11 @@ with open('Player_Totals.csv', newline='') as csvfile:
     for row in reader:
 
         # Create URIs for the player, team and season
-        player_uri = nba[row['player_id']]
-        
-        team_uri = nba[row['tm']]
+        player_uri = URIRef(f'http://example.org/nba/player/{row["player_id"]}')
 
-        season_uri = nba[row['season']]
+        team_uri = URIRef(f'http://example.org/nba/team/{row["tm"]}')
 
+        season_uri = URIRef(f'http://example.org/nba/season/{row["season"]}-{int(row["season"]) + 1}')
         
         # Add triples for the player, team and season
         g.add((player_uri, rdf.type, nba.Player))
@@ -44,7 +44,20 @@ with open('Player_Totals.csv', newline='') as csvfile:
 
         g.add((team_uri, nba.hasName, Literal(row['tm'], lang='en')))
 
-        g.add((season_uri, nba.hasSeason, Literal(row['season'])))
+        # Relate team to a player
+        g.add((team_uri, nba.hasPlayer, player_uri))
+
+        g.add((season_uri, rdf.type, nba.Season))
+
+        g.add((season_uri, nba.hasYear, Literal(row['season'], datatype=xsd.int)))
+
+        # Relate season to a player
+        g.add((season_uri, nba.hasPlayer, player_uri))
+
+        # Relate player to their team and season
+        g.add((player_uri, nba.playsFor, team_uri))
+
+        g.add((player_uri, nba.playsInSeason, season_uri))
 
 
         # Add triples for the player's stats
