@@ -61,7 +61,7 @@ class Repository:
 
     # Search players
     search_players = """
-   PREFIX nba:<http://example.org/nba/>
+    PREFIX nba:<http://example.org/nba/>
     PREFIX stats:<http://example.org/nba/stats/>
             
     SELECT ?player ?name ?team_code ?position ?player_stats ?points ?assists ?stats_season
@@ -75,6 +75,43 @@ class Repository:
         ?player_stats nba:position ?position .
         ?player_stats stats:season ?stats_season .
         FILTER (regex(?name, "NAME", "i")) .
+    """
+
+    # Add player
+    """
+    PREFIX nba:<http://example.org/nba/>
+    PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+
+    Insert data{
+        nba: nba:hasName "FM";
+            nba:hasPosition "FM";
+            nba:playsFor "FM";
+	        nba:playsInSeason "FM";
+	        nba:hasPoints "FM";
+            nba:hasAssists "FM";
+	        nba:hasGamesPlayed "FM";
+	        nba:hasGamesStarted "FM";
+            nba:hasMinutesPlayed "FM";
+            nba:hasFieldGoals "FM";
+            nba:hasFieldGoalAttempts "FM";
+            nba:hasFieldGoalPercentage "FM";
+            nba:hasFreeThrows "FM";
+            nba:hasFreeThrowAttempts "FM";
+            nba:hasFreeThrowPercentage "FM";
+            nba:hasOffensiveRebounds "FM";
+            nba:hasDefensiveRebounds "FM";
+            nba:hasTotalRebounds "FM";
+            nba:hasSteals "FM";
+            nba:hasBlocks "FM";
+            nba:hasTurnovers "FM";
+            nba:hasPersonalFouls "FM";
+            nba:hasThreePointFieldGoals "FM";
+            nba:hasThreePointFieldGoalAttempts "FM";
+            nba:hasThreePointFieldGoalPercentage "FM";
+            nba:hasTwoPointFieldGoals "FM";
+            nba:hasTwoPointFieldGoalAttempts "FM";
+	        nba:hasTwoPointFieldGoalPercentage "FM".
+    }
     """
 
     def __init__(self, repo_name, endpoint):
@@ -212,3 +249,8 @@ class Repository:
             dic['team'] = i['team']['value']
             lst.append(dic)
         return lst
+    
+    def addPlayer(self, id, name, position, team, season, points, assists, games_played, games_started, minutes_played, field_goals, field_goal_attempts, field_goal_percentage, free_throws, free_throw_attempts, free_throw_percentage, offensive_rebounds, defensive_rebounds, total_rebounds, steals, blocks, turnovers, personal_fouls, three_point_goals, three_point_goal_attempts, three_point_goal_percentage, two_point_goals, two_point_goal_attempts, two_point_goal_percentage ):
+        query = "PREFIX nba:<http://example.org/nba/> Insert data{ nba:" + id + " nba:hasName '" + name + "'^^xsd:string; nba:hasPosition '" + position + "'^^xsd:string; nba:playsFor '" + team + "'^^xsd:string; nba:playsInSeason '" + season + "'^^xsd:string; nba:hasPoints '" + points + "'^^xsd:string; nba:hasAssists '" + assists + "'^^xsd:string; nba:hasGamesPlayed '" + games_played + "'^^xsd:string; nba:hasGamesStarted '" + games_started + "'^^xsd:string; nba:hasMinutesPlayed '" + minutes_played + "'^^xsd:string; nba:hasFieldGoals '" + field_goals + "'^^xsd:string; nba:hasFieldGoalAttempts '" + field_goal_attempts + "'^^xsd:string; nba:hasFieldGoalPercentage '" + field_goal_percentage + "'^^xsd:string; nba:hasFreeThrows '" + free_throws + "'^^xsd:string; nba:hasFreeThrowAttempts '" + free_throw_attempts + "'^^xsd:string; nba:hasFreeThrowPercentage '" + free_throw_percentage + "'^^xsd:string; nba:hasOffensiveRebounds '" + offensive_rebounds + "'^^xsd:string; nba:hasDefensiveRebounds '" + defensive_rebounds + "'^^xsd:string; nba:hasTotalRebounds '" + total_rebounds + "'^^xsd:string; nba:hasSteals '" + steals + "'^^xsd:string; nba:hasBlocks '" + blocks + "'^^xsd:string; nba:hasTurnovers '" + turnovers + "'^^xsd:string; nba:hasPersonalFouls '" + personal_fouls + "'^^xsd:string; nba:hasThreePointFieldGoals '" + three_point_goals + "'^^xsd:string; nba:hasThreePointFieldGoalAttempts '" + three_point_goal_attempts + "'^^xsd:string; nba:hasThreePointFieldGoalPercentage '" + three_point_goal_percentage + "'^^xsd:string; nba:hasTwoPointFieldGoals '" + two_point_goals + "'^^xsd:string; nba:hasTwoPointFieldGoalAttempts '" + two_point_goal_attempts + "'^^xsd:string; nba:hasTwoPointFieldGoalPercentage '" + two_point_goal_percentage + "'^^xsd:string. }"
+        #print(query)
+        return self.graphDB.add(query)
