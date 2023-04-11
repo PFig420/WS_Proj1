@@ -23,6 +23,7 @@ class GraphDB:
     def getResults(self, query):
         payload_query = {"query": query}
         res = self.accessor.sparql_select(body=payload_query, repo_name=self.repo_name)
+        print(res)
         res = json.loads(res)
         return res['results']['bindings']
 

@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
+    <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 800; line-height: 72px;">Search Players</h1>
+    <div style="padding-bottom: 5%;">
+        <h5 style="position: absolute; left: 30%; width: 40%;">Search for a player's name below and get their stats per season</h5>
+    </div>
+  </div>
+
+ <form class="d-flex" role="search" method="get" onsubmit="return checkInputSeason()">
+    <label>
+        <span>Search by season:</span>
+        <input type="checkbox" id="checkbox" name="season" value="season" onclick="myFunction()">
+      </label>
+    <input class="form-control me-2" id="search_name" name="search_text" type="search" placeholder="Insert player name here" aria-label="Search" >
+    <input class="form-control me-2" id="search_season" name="search_season" type="number" min="1947" step="1" max="2023" placeholder="Insert season here" aria-label="Search" disabled>
+
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
+<script>
+   function myFunction() {
+        // Get the checkbox
+        var checkBox = document.getElementById("checkbox");
+        // Get the input 
+        var inpt = document.getElementById("search_season");
+
+        // If the checkbox is checked, display the output text
+        if (checkBox.checked == true) 
+            inpt.disabled = false;
+        else 
+            inpt.disabled = true;
+    }
+
+    function checkInputSeason() {
+        // Get the input text
+        var name = document.getElementById("search_name").value;
+        var season = document.getElementById("search_season").value;
+
+        var checkBox = document.getElementById("checkbox");
+
+        if (checkBox.checked == true){
+            if (name != "" && season != "")
+                return true;
+        }
+        else{
+            if (name != "")
+                return true;
+        } 
+
+        alert("Information provided is not correct!")
+        return false;
+    }
+</script>
+
+{% endblock %}

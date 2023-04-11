@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
+    <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 800; line-height: 72px;">Search Players</h1>
+    <div style="padding-bottom: 5%;">
+        <h5 style="position: absolute; left: 30%; width: 40%;">Search for a player's name below and get their stats per season</h5>
+    </div>
+  </div>
+
+  <form class="d-flex" role="search" method="get">
+    <label>
+        <span>Search by season:</span>
+        <input type="checkbox" id="checkbox" name="season" value="season" onclick="myFunction()">
+      </label>
+    <input class="form-control me-2" name="search_text" type="search" placeholder="Insert player name here" aria-label="Search" >
+    <input class="form-control me-2" id="search_season" name="search_season" type="number" min="1947" step="1" max="2023" placeholder="Insert season here" aria-label="Search" disabled>
+
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
+<p style="margin-left: 500px"> Search for: {{ search_text }} - Season: {{ search_season }}</p>
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Team</th>
+            <th>Position</th>
+            <th>Points</th>
+            <th>Assists</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in results %}
+            <tr>
+                <td>{{ result.name }}</td>
+                <td>{{ result.team_code }}</td>
+                <td>{{ result.position }}</td>
+                <td>{{ result.points }}</td>
+                <td >{{ result.assists }}</td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+<script>
+    function myFunction() {
+        // Get the checkbox
+        var checkBox = document.getElementById("checkbox");
+        // Get the output text
+        var inpt = document.getElementById("search_season");
+    
+        // If the checkbox is checked, display the output text
+        if (checkBox.checked == true){
+            inpt.disabled = false;
+        } else {
+            inpt.disabled = true;
+        }
+        }
+    </script>
+
+{% endblock %}
