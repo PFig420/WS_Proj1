@@ -4,8 +4,11 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 from django.template import loader
+from django.views.decorators.csrf import csrf_protect 
 
 from nbastats.repository import Repository
+
+import random
 
 repository_name = "nba_stats"
 endpoint = "http://127.0.0.1:7200/"
@@ -63,19 +66,39 @@ def topstats(request):
     
     return render(request, 'top_stats.html')
 
-
-def seasonsearch(request):
+@csrf_protect
+def addplayer(request):
 
     assert isinstance(request, HttpRequest)
 
-    if 'from' in request.POST:
+    if "name" and "age" and "league" and "team_code" and "season" and "position" and "points" and "assists" and "games" and "minutes" and "steals" and "blocks" and "threes" and "twos" in request.POST:
+        name = request.POST["name"]
+        age = request.POST["age"]
+        league = request.POST["league"]
+        team_code = request.POST["team_code"]
+        season = request.POST["season"]
+        position = request.POST["position"]
+        points = request.POST["points"]
+        assists = request.POST["assists"]
+        games = request.POST["games"]
+        minutes = request.POST["minutes"]
+        steals = request.POST["steals"]
+        blocks = request.POST["blocks"]
+        threes = request.POST["threes"]
+        twos = request.POST["twos"]
 
-        season = request.POST['from']
+        if name and age and league and team_code and season and position and points and assists and games and minutes and steals and blocks and threes and twos:
 
-        if season and season.isnumeric():
+            id = random.randint(6000, 10000)
 
-            results = repository.search_year(season)
+            results = repository.addPlayer(id, name, age, league, team_code, season, position, points, assists, games, minutes, steals, blocks, threes, twos)
 
-            return render(request, 'seasons.html', {'from': season, 'base': 'base.html', 'results': results, 'nResults': len(results)})
+            tparams = {'result': results}
+
+            return render(request, 'add_player.html', tparams)
+        else:
+            return render(request, 'add_player.html')
+    
+    return render(request, 'add_player.html')
 
         

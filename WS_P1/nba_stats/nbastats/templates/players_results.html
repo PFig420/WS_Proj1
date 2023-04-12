@@ -26,7 +26,7 @@
     <p style="margin-top: 30px;"> Search for: {{ search_text }} - Season: {{ search_season }}</p>
 </div>
 
-<table style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 14px;">
+<table style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 14px; margin-bottom: 3rem;">
     <thead style="background-color: #f2f2f2;">
         <tr>
             <th style="text-align: left; padding: 12px; border: 1px solid #ddd;">Name</th>
@@ -39,7 +39,7 @@
     </thead>
     <tbody>
         {% for result in results %}
-        <tr style="background-color: #fff; cursor: pointer;" onclick="showInfo('{{ result.name }}', '{{ result.season }}', '{{ result.team_code }}', '{{ result.position }}', '{{ result.points }}', '{{ result.assists }}', '{{ result.blocks }}', '{{ result.steals }}', '{{ result.games_played }}', '{{ result.minutes_played }}', '{{ result.three_points }}', '{{ result.two_points }}')">
+        <tr style="background-color: #fff; cursor: pointer;" onmouseover="this.style.backgroundColor='#f5f5f5';" onmouseout="this.style.backgroundColor='#fff';" onclick="showInfo('{{ result.name }}', '{{ result.season }}', '{{ result.team_code }}', '{{ result.position }}', '{{ result.points }}', '{{ result.assists }}', '{{ result.blocks }}', '{{ result.steals }}', '{{ result.games_played }}', '{{ result.minutes_played }}', '{{ result.three_points }}', '{{ result.two_points }}')">
             <td style="padding: 12px; border: 1px solid #ddd;">{{ result.name }}</td>
             <td style="padding: 12px; border: 1px solid #ddd;">{{ result.season }}</td>
             <td style="padding: 12px; border: 1px solid #ddd;">{{ result.team_code }}</td>

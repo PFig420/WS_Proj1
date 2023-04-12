@@ -17,7 +17,6 @@ def create_n_triples(csv_data):
         g.add((player_uri, nba.player_id, Literal(row['player_id'])))
         g.add((player_uri, nba.player, Literal(row['player'])))
         g.add((player_uri, nba.age, Literal(row['age'])))
-        g.add((player_uri, nba.experience, Literal(row['experience'])))
         g.add((player_uri, nba.lg, Literal(row['lg'])))
         
         team_uri = nba[f'team{row["tm"]}']

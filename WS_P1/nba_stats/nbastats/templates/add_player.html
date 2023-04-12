@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container text-center my-5" style="width: 600px; margin: auto;">
+    <h1 class="display-4 font-weight-bold mb-4" >Add a player</h1>
+    <div class="mb-4">
+        <p class="lead" style="color: #777;">Insert information about a specific player and add it to the database</p>
+    </div>
+    <form class="form-inline justify-content-center" role="add" method="post">
+        {%  csrf_token %}
+        <div style="display: flex;">
+            <div style="flex: 1;">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">Name</label>
+                    <input class="form-control" name="name" type="search" placeholder="Insert player name here" aria-label="Player name" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">Age</label>
+                    <input class="form-control" name="age" type="number" placeholder="Insert player age here" aria-label="Player age" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">League</label>
+                    <input class="form-control" name="league" type="search" placeholder="Insert player league here" aria-label="Player league" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">Team Code</label>
+                    <input class="form-control" name="team_code" type="search" placeholder="Insert player team code here" aria-label="Player team" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">Season</label>
+                    <input class="form-control" name="season" type="search" placeholder="Insert player season here" aria-label="Player season" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">Position</label>
+                    <input class="form-control" name="position" type="search" placeholder="Insert player position here" aria-label="Player league" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">Points</label>
+                    <input class="form-control" name="points" type="search" placeholder="Insert player points here" aria-label="Player league" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+            </div>
+            <div style="flex: 1;">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">Assists</label>
+                    <input class="form-control" name="assists" type="search" placeholder="Insert player assists here" aria-label="Player league" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">Games Played</label>
+                    <input class="form-control" name="games" type="search" placeholder="Insert player games played here" aria-label="Player league" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">Minutes Played</label>
+                    <input class="form-control" name="minutes" type="search" placeholder="Insert player minutes played here" aria-label="Player league" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">Steals</label>
+                    <input class="form-control" name="steals" type="search" placeholder="Insert player steals here" aria-label="Player league" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">Blocks</label>
+                    <input class="form-control" name="blocks" type="search" placeholder="Insert player blocks here" aria-label="Player league" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">Threes</label>
+                    <input class="form-control" name="threes" type="search" placeholder="Insert player three points here" aria-label="Player league" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="search_text" class="sr-only">Twos</label>
+                    <input class="form-control" name="twos" type="search" placeholder="Insert player two points here" aria-label="Player league" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-lg btn-success mb-2" type="submit" style="width: 100%; background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 4px;">Add Player</button>
+    </form>
+
+    <p style="margin-top: 30px;"> {% if result %} Player added successfully! {% else %} Something went wrong! {% endif %}</p>
+</div>
+
+
+<script>
+   function myFunction() {
+        // Get the checkbox
+        var checkBox = document.getElementById("checkbox");
+        // Get the input 
+        var inpt = document.getElementById("search_season");
+
+        // If the checkbox is checked, display the output text
+        if (checkBox.checked == true) 
+            inpt.disabled = false;
+        else 
+            inpt.disabled = true;
+    }
+
+    function checkInputSeason() {
+        // Get the input text
+        var name = document.getElementById("search_name").value;
+        var season = document.getElementById("search_season").value;
+
+        var checkBox = document.getElementById("checkbox");
+
+        if (checkBox.checked == true){
+            if (name != "" && season != "")
+                return true;
+        }
+        else{
+            if (name != "")
+                return true;
+        } 
+
+        alert("Information provided is not correct!")
+        return false;
+    }
+</script>
+
+{% endblock %}

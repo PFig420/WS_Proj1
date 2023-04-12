@@ -111,40 +111,35 @@ class Repository:
     """
 
     # Add player
-    """
+    add_player="""
     PREFIX nba:<http://example.org/nba/>
+    PREFIX stats:<http://example.org/nba/stats/>
     PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
 
     Insert data{
-        nba: nba:hasName "FM";
-            nba:hasPosition "FM";
-            nba:playsFor "FM";
-	        nba:playsInSeason "FM";
-	        nba:hasPoints "FM";
-            nba:hasAssists "FM";
-	        nba:hasGamesPlayed "FM";
-	        nba:hasGamesStarted "FM";
-            nba:hasMinutesPlayed "FM";
-            nba:hasFieldGoals "FM";
-            nba:hasFieldGoalAttempts "FM";
-            nba:hasFieldGoalPercentage "FM";
-            nba:hasFreeThrows "FM";
-            nba:hasFreeThrowAttempts "FM";
-            nba:hasFreeThrowPercentage "FM";
-            nba:hasOffensiveRebounds "FM";
-            nba:hasDefensiveRebounds "FM";
-            nba:hasTotalRebounds "FM";
-            nba:hasSteals "FM";
-            nba:hasBlocks "FM";
-            nba:hasTurnovers "FM";
-            nba:hasPersonalFouls "FM";
-            nba:hasThreePointFieldGoals "FM";
-            nba:hasThreePointFieldGoalAttempts "FM";
-            nba:hasThreePointFieldGoalPercentage "FM";
-            nba:hasTwoPointFieldGoals "FM";
-            nba:hasTwoPointFieldGoalAttempts "FM";
-	        nba:hasTwoPointFieldGoalPercentage "FM".
-    }
+        nba:playerID nba:type nba:Player;
+            nba:player_id "ID"^^xsd:int;
+            nba:player "NAME"^^xsd:string;
+            nba:age "AGE"^^xsd:int;
+            nba:lg "LEAGUE"^^xsd:string;
+            nba:has_stats stats:seasonSEAS_playerID.
+    
+        nba:teamTM_CODE nba:type nba:team;
+            nba:team_code "TM_CODE"^^xsd:string.
+    
+        stats:seasonSEAS_playerID nba:type stats:SeasonStats;
+            nba:plays_for nba:teamTM_CODE;
+            stats:season "SEAS"^^xsd:int;
+            nba:position "POS"^^xsd:string;
+            nba:hasPoints "PTS"^^xsd:int;
+            nba:hasAssists "AST"^^xsd:int;
+            nba:hasGamesPlayed "GMS"^^xsd:int;
+            nba:hasMinutesPlayed "MINS"^^xsd:int;
+            nba:hasSteals "STLS"^^xsd:int;
+            nba:hasBlocks "BLKS"^^xsd:int;
+            nba:hasThreePointFieldGoals "3S"^^xsd:int;
+            nba:hasTwoPointFieldGoals "2S"^^xsd:int.
+    };
     """
 
     def __init__(self, repo_name, endpoint):
@@ -195,6 +190,12 @@ class Repository:
             lst.append(dic)
 
         return lst
+    
+    def addPlayer(self, id, name , age , league , team_code , season , position , points , assists , games , minutes , steals , blocks , threes , twos):
+        player = self.add_player.replace("ID", str(id)).replace("NAME", name).replace("AGE", age).replace("LEAGUE", league).replace("SEAS", season).replace("TM_CODE", team_code).replace("POS", position).replace("PTS", points).replace("AST", assists).replace("GMS", games).replace("MINS", minutes).replace("STLS", steals).replace("BLKS", blocks). replace("3S", threes).replace("2S", twos)
+        res = self.graphDB.add(player)
+        print(res)
+        return res
 
 
     def getNumberPlayers(self):
@@ -287,8 +288,3 @@ class Repository:
             dic['team'] = i['team']['value']
             lst.append(dic)
         return lst
-    
-    def addPlayer(self, id, name, position, team, season, points, assists, games_played, games_started, minutes_played, field_goals, field_goal_attempts, field_goal_percentage, free_throws, free_throw_attempts, free_throw_percentage, offensive_rebounds, defensive_rebounds, total_rebounds, steals, blocks, turnovers, personal_fouls, three_point_goals, three_point_goal_attempts, three_point_goal_percentage, two_point_goals, two_point_goal_attempts, two_point_goal_percentage ):
-        query = "PREFIX nba:<http://example.org/nba/> Insert data{ nba:" + id + " nba:hasName '" + name + "'^^xsd:string; nba:hasPosition '" + position + "'^^xsd:string; nba:playsFor '" + team + "'^^xsd:string; nba:playsInSeason '" + season + "'^^xsd:string; nba:hasPoints '" + points + "'^^xsd:string; nba:hasAssists '" + assists + "'^^xsd:string; nba:hasGamesPlayed '" + games_played + "'^^xsd:string; nba:hasGamesStarted '" + games_started + "'^^xsd:string; nba:hasMinutesPlayed '" + minutes_played + "'^^xsd:string; nba:hasFieldGoals '" + field_goals + "'^^xsd:string; nba:hasFieldGoalAttempts '" + field_goal_attempts + "'^^xsd:string; nba:hasFieldGoalPercentage '" + field_goal_percentage + "'^^xsd:string; nba:hasFreeThrows '" + free_throws + "'^^xsd:string; nba:hasFreeThrowAttempts '" + free_throw_attempts + "'^^xsd:string; nba:hasFreeThrowPercentage '" + free_throw_percentage + "'^^xsd:string; nba:hasOffensiveRebounds '" + offensive_rebounds + "'^^xsd:string; nba:hasDefensiveRebounds '" + defensive_rebounds + "'^^xsd:string; nba:hasTotalRebounds '" + total_rebounds + "'^^xsd:string; nba:hasSteals '" + steals + "'^^xsd:string; nba:hasBlocks '" + blocks + "'^^xsd:string; nba:hasTurnovers '" + turnovers + "'^^xsd:string; nba:hasPersonalFouls '" + personal_fouls + "'^^xsd:string; nba:hasThreePointFieldGoals '" + three_point_goals + "'^^xsd:string; nba:hasThreePointFieldGoalAttempts '" + three_point_goal_attempts + "'^^xsd:string; nba:hasThreePointFieldGoalPercentage '" + three_point_goal_percentage + "'^^xsd:string; nba:hasTwoPointFieldGoals '" + two_point_goals + "'^^xsd:string; nba:hasTwoPointFieldGoalAttempts '" + two_point_goal_attempts + "'^^xsd:string; nba:hasTwoPointFieldGoalPercentage '" + two_point_goal_percentage + "'^^xsd:string. }"
-        #print(query)
-        return self.graphDB.add(query)
