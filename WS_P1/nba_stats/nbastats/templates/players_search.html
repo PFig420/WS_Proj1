@@ -2,23 +2,28 @@
 
 {% block content %}
 
-<div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
-    <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 800; line-height: 72px;">Search Players</h1>
-    <div style="padding-bottom: 5%;">
-        <h5 style="position: absolute; left: 30%; width: 40%;">Search for a player's name below and get their stats per season</h5>
+<div class="container text-center my-5" style="width: 600px; margin: auto;">
+    <h1 class="display-4 font-weight-bold mb-4" >Search Players</h1>
+    <div class="mb-4">
+        <p class="lead" style="color: #777;">Search for a player's name below and get their stats per season</p>
     </div>
-  </div>
+    <form class="form-inline justify-content-center" role="search" method="get">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="search_text" class="sr-only">Search by player name</label>
+            <input class="form-control" name="search_text" type="search" placeholder="Insert player name here" aria-label="Search by player name" style="width: 100%; padding: 12px 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="search_season" class="sr-only">Search by season</label>
+            <input class="form-control" id="search_season" name="search_season" type="number" min="1947" step="1" max="2023" placeholder="Insert season here" aria-label="Search by season" disabled style="width: 100%; padding: 12px 20px; margin-top: 16px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            <div class="form-check form-check-inline" style="margin-top: 16px;">
+                <input type="checkbox" id="checkbox" onclick="myFunction()" style="margin-right: 5px;">
+                <label class="form-check-label" for="checkbox" style="color: #777;">Search by season</label>
+            </div>
+        </div>
+        <button class="btn btn-lg btn-success mb-2" type="submit" style="width: 100%; background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 4px;">Search</button>
+    </form>
+</div>
 
- <form class="d-flex" role="search" method="get" onsubmit="return checkInputSeason()">
-    <label>
-        <span>Search by season:</span>
-        <input type="checkbox" id="checkbox" name="season" value="season" onclick="myFunction()">
-      </label>
-    <input class="form-control me-2" id="search_name" name="search_text" type="search" placeholder="Insert player name here" aria-label="Search" >
-    <input class="form-control me-2" id="search_season" name="search_season" type="number" min="1947" step="1" max="2023" placeholder="Insert season here" aria-label="Search" disabled>
-
-    <button class="btn btn-outline-success" type="submit">Search</button>
-</form>
 
 <script>
    function myFunction() {

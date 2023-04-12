@@ -3,34 +3,33 @@
 {% block content %}
 
   <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
-    <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 800; line-height: 72px;">NBA StatFinder</h1>
-    <div style="padding-bottom: 5%;">
-        <h5 style="position: absolute; left: 30%; width: 40%;">Performance of every NBA/ABA athlete measures using over 30 performance metrics</h5>
+    <h1 class="display-4 font-weight-bold mb-4" >NBA StatFinder</h1>
+    <div class="mb-4">
+        <p class="lead" style="color: #777;">Performance of every NBA/ABA athlete measures using 6 performance metrics</p>
     </div>
-  </div>
+</div>
 
-  <div class="container-fluid">
-      {% load static %}
+<div class="container-fluid">
+    {% load static %}
     <div class="row d-flex justify-content-center">
-        <div class="card text-white bg-dark mb-3" style="width: 18rem; margin: 2%;">
+        <div class="card text-white bg-dark mb-3" style="width: 18rem; margin: 2%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);">
             <img src="{% static 'images/cool-basketball-background.jpg' %}" class="card-img-top" alt="trackers">
             <div class="card-body">
                 <h5 class="card-title">Player Stats</h5>
                 <p class="card-text">Find a player's career stats, year by year</p>
                 <div style="text-align: center; margin-top: 30%;">
-                    <a href="/player" class="btn btn-light">Click here!</a>
+                    <a href="/player" class="btn btn-light" style="font-weight: 600;">Click here!</a>
                 </div>
             </div>
         </div>
 
-        <div class="card text-white bg-dark mb-3" style="width: 18rem; margin: 2%;">
+        <div class="card text-white bg-dark mb-3" style="width: 18rem; margin: 2%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);">
             <img src="{% static 'images/jerrywest.jpeg' %}" class="card-img-top" alt="chatrooms">
             <div class="card-body">
                 <h5 class="card-title">Season Stats</h5>
                 <p class="card-text">Pick a season and find out the year's best performers</p>
                 <div style="text-align: center; margin-top: 30%;">
-                    <a href="/season" class="btn btn-light">Find More!</a>
-                    <!--<a href="../chatrooms/MedChatroom.html" class="btn btn-light">Medical chatroom</a>-->
+                    <a href="/season" class="btn btn-light" style="font-weight: 600;">Find More!</a>
                 </div>
             </div>
         </div>
@@ -38,10 +37,10 @@
         <div class="card text-white bg-dark mb-3" style="width: 18rem; margin: 2%;">
             <img src="{% static 'images/champignons.jpeg' %}" class="card-img-top" alt="wellness check">
             <div class="card-body">
-                <h5 class="card-title">Advanced Stats</h5>
-                <p class="card-text">Find player's performances in over 30 advanced stats</p>
+                <h5 class="card-title">Top Stats</h5>
+                <p class="card-text">Find the best 10 players for each stat</p>
                 <div style="text-align: center; margin-top: 30%;">
-                    <a href="../WellnessCheck/wellnessCheck.html" class="btn btn-light">Click here!</a>
+                    <a href="/top-stats" class="btn btn-light">Click here!</a>
                 </div>
             </div>
         </div>

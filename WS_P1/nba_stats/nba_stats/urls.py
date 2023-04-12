@@ -22,7 +22,7 @@ urlpatterns = [
     path('', views.members, name='members'),
     path('player/', views.playersearch, name='player'),
     path('season/', views.seasonsearch, name='season'),
-    path('stats/', views.members, name='stats'),
+    path('top-stats/', views.topstats, name='top-stats'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

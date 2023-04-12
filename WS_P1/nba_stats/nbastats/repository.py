@@ -64,17 +64,50 @@ class Repository:
     PREFIX nba:<http://example.org/nba/>
     PREFIX stats:<http://example.org/nba/stats/>
             
-    SELECT ?player ?name ?team_code ?position ?player_stats ?points ?assists ?stats_season
+    SELECT ?player ?name ?team_code ?position ?player_stats ?points ?assists ?stats_season ?games_played ?minutes_played ?blocks ?three_points ?two_points ?steals
     WHERE {
         ?player nba:player ?name .
         ?player nba:has_stats ?player_stats .
         ?player_stats nba:plays_for ?team .
         ?team nba:team_code ?team_code .
         ?player_stats nba:hasPoints ?points .
+        ?player_stats nba:hasGamesPlayed ?games_played .
+        ?player_stats nba:hasMinutesPlayed ?minutes_played .
+        ?player_stats nba:hasBlocks ?blocks .
+        ?player_stats nba:hasThreePointFieldGoals ?three_points .
+        ?player_stats nba:hasTwoPointFieldGoals ?two_points .
+        ?player_stats nba:hasSteals ?steals .
         ?player_stats nba:hasAssists ?assists .
         ?player_stats nba:position ?position .
         ?player_stats stats:season ?stats_season .
         FILTER (regex(?name, "NAME", "i")) .
+    """
+
+    # Get top 10 of a stat
+    top10_stat = """
+    PREFIX nba:<http://example.org/nba/>
+    PREFIX stats:<http://example.org/nba/stats/>
+
+    SELECT ?player ?name ?team_code ?position ?player_stats ?points ?assists ?stats_season ?games_played ?minutes_played ?blocks ?three_points ?two_points ?steals
+        WHERE {
+            ?player nba:player ?name .
+            ?player nba:has_stats ?player_stats .
+            ?player_stats nba:plays_for ?team .
+            ?team nba:team_code ?team_code .
+            ?player_stats nba:hasPoints ?points .
+            ?player_stats nba:hasGamesPlayed ?games_played .
+            ?player_stats nba:hasMinutesPlayed ?minutes_played .
+            ?player_stats nba:hasBlocks ?blocks .
+            ?player_stats nba:hasThreePointFieldGoals ?three_points .
+            ?player_stats nba:hasTwoPointFieldGoals ?two_points .
+            ?player_stats nba:hasSteals ?steals .
+            ?player_stats nba:hasAssists ?assists .
+            ?player_stats nba:position ?position .
+            ?player_stats stats:season ?stats_season .
+            FILTER (str(?STAT) != "Unknown") .
+    }
+    ORDER BY DESC(xsd:double(?STAT))
+    LIMIT 10
     """
 
     # Add player
@@ -126,34 +159,39 @@ class Repository:
         for i in res:
             dic = {}
             dic['name'] = i['name']['value']
+            dic['season'] = i['stats_season']['value']
             dic['position'] = i['position']['value']
             dic['team_code'] = i['team_code']['value']
-            # dic['playsFor'] = i['playsFor']['value']
-            # dic['playsInSeason'] = i['playsInSeason']['value']
             dic['points'] = i['points']['value']
             dic['assists'] = i['assists']['value']
-            # dic['hasGamesPlayed'] = i['hasGamesPlayed']['value']
-            # dic['hasGamesStarted'] = i['hasGamesStarted']['value']
-            # dic['hasMinutesPlayed'] = i['hasMinutesPlayed']['value']
-            # dic['hasFieldGoals'] = i['hasFieldGoals']['value']
-            # dic['hasFieldGoalAttempts'] = i['hasFieldGoalAttempts']['value']
-            # dic['hasFieldGoalPercentage'] = i['hasFieldGoalPercentage']['value']
-            # dic['hasFreeThrows'] = i['hasFreeThrows']['value']
-            # dic['hasFreeThrowAttempts'] = i['hasFreeThrowAttempts']['value']
-            # dic['hasFreeThrowPercentage'] = i['hasFreeThrowPercentage']['value']
-            # dic['hasOffensiveRebounds'] = i['hasOffensiveRebounds']['value']
-            # dic['hasDefensiveRebounds'] = i['hasDefensiveRebounds']['value']
-            # dic['hasTotalRebounds'] = i['hasTotalRebounds']['value']
-            # dic['hasSteals'] = i['hasSteals']['value']
-            # dic['hasBlocks'] = i['hasBlocks']['value']
-            # dic['hasTurnovers'] = i['hasTurnovers']['value']
-            # dic['hasPersonalFouls'] = i['hasPersonalFouls']['value']
-            # dic['hasThreePointFieldGoals'] = i['hasThreePointFieldGoals']['value']
-            # dic['hasThreePointFieldGoalAttempts'] = i['hasThreePointFieldGoalAttempts']['value']
-            # dic['hasThreePointFieldGoalPercentage'] = i['hasThreePointFieldGoalPercentage']['value']
-            # dic['hasTwoPointFieldGoals'] = i['hasTwoPointFieldGoals']['value']
-            # dic['hasTwoPointFieldGoalAttempts'] = i['hasTwoPointFieldGoalAttempts']['value']
-            # dic['hasTwoPointFieldGoalPercentage'] = i['hasTwoPointFieldGoalPercentage']['value']
+            dic['blocks'] = i['blocks']['value']
+            dic['steals'] = i['steals']['value']
+            dic['games_played'] = i['games_played']['value']
+            dic['minutes_played'] = i['minutes_played']['value']
+            dic['three_points'] = i['three_points']['value']
+            dic['two_points'] = i['two_points']['value']
+            lst.append(dic)
+
+        return lst
+    
+    def top10OfStat(self, stat):
+        top10 = self.top10_stat.replace("STAT", stat)
+        lst = []
+        res = self.graphDB.getResults(top10)
+        for i in res:
+            dic = {}
+            dic['name'] = i['name']['value']
+            dic['season'] = i['stats_season']['value']
+            dic['position'] = i['position']['value']
+            dic['team_code'] = i['team_code']['value']
+            dic['points'] = i['points']['value']
+            dic['assists'] = i['assists']['value']
+            dic['blocks'] = i['blocks']['value']
+            dic['steals'] = i['steals']['value']
+            dic['games_played'] = i['games_played']['value']
+            dic['minutes_played'] = i['minutes_played']['value']
+            dic['three_points'] = i['three_points']['value']
+            dic['two_points'] = i['two_points']['value']
             lst.append(dic)
 
         return lst
