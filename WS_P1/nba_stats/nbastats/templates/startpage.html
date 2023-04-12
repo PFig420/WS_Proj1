@@ -13,34 +13,34 @@
     {% load static %}
     <div class="row d-flex justify-content-center">
         <div class="card text-white bg-dark mb-3" style="width: 18rem; margin: 2%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);">
-            <img src="{% static 'images/cool-basketball-background.jpg' %}" class="card-img-top" alt="trackers">
-            <div class="card-body">
+            <img src="{% static 'images/cool-basketball-background.jpg' %}" class="card-img-top" alt="trackers" style="height: 200px; object-fit: cover;">
+            <div class="card-body" style="height: 180px;">
                 <h5 class="card-title">Player Stats</h5>
                 <p class="card-text">Find a player's career stats, year by year</p>
-                <div style="text-align: center; margin-top: 30%;">
-                    <a href="/player" class="btn btn-light" style="font-weight: 600;">Click here!</a>
+                <div style="text-align: center; position: absolute; bottom: 10px; width: 100%;">
+                    <a href="/player" class="btn btn-light">Click here!</a>
                 </div>
             </div>
         </div>
 
-        <div class="card text-white bg-dark mb-3" style="width: 18rem; margin: 2%;">
-            <img src="{% static 'images/champignons.jpeg' %}" class="card-img-top" alt="wellness check">
-            <div class="card-body">
+        <div class="card text-white bg-dark mb-3" style="width: 18rem; margin: 2%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);">
+            <img src="{% static 'images/champignons.jpeg' %}" class="card-img-top" alt="wellness check" style="height: 200px; object-fit: cover;">
+            <div class="card-body" style="height: 180px;">
                 <h5 class="card-title">Top Stats</h5>
                 <p class="card-text">Find the best 10 players for each stat</p>
-                <div style="text-align: center; margin-top: 30%;">
+                <div style="text-align: center; position: absolute; bottom: 10px; width: 100%;">
                     <a href="/top-stats" class="btn btn-light">Click here!</a>
                 </div>
             </div>
         </div>
 
         <div class="card text-white bg-dark mb-3" style="width: 18rem; margin: 2%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);">
-            <img src="{% static 'images/jerrywest.jpeg' %}" class="card-img-top" alt="chatrooms">
-            <div class="card-body">
+            <img src="{% static 'images/jerrywest.jpeg' %}" class="card-img-top" alt="chatrooms" style="height: 200px; object-fit: cover;">
+            <div class="card-body" style="height: 180px;">
                 <h5 class="card-title">Add Player Stats</h5>
                 <p class="card-text">Insert new information about a player to the database</p>
-                <div style="text-align: center; margin-top: 30%;">
-                    <a href="/add-player" class="btn btn-light" style="font-weight: 600;">Click Here!</a>
+                <div style="text-align: center; position: absolute; bottom: 10px; width: 100%;">
+                    <a href="/add-player" class="btn btn-light">Click Here!</a>
                 </div>
             </div>
         </div>
